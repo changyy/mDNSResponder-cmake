@@ -1,0 +1,43 @@
+$ mkdir build
+$ cd build
+$ cmake ..
+$ make
+$ ls bin
+mdns_client  mdns_responder
+$ ./bin/mdns_responder -h
+Usage: mdns_responder [-v level ] [-r] [-n name] [-t type] [-d domain] [-p port] [-f file] [-b] [-P pidfile] [-x name=val ...]
+          -v verbose mode, level is a number from 0 to 2
+             0 = no debugging info (default)
+             1 = standard debugging info
+             2 = intense debugging info
+             can be cycled kill -USR1
+          -r also bind to port 53 (port 5353 is always bound)
+          -n uses 'name' as the service name (required)
+          -t uses 'type' as the service type (default is '_afpovertcp._tcp.')
+          -d uses 'domain' as the service domain (default is 'local.')
+          -p uses 'port' as the port number (default is '548')
+          -f reads a service list from 'file'
+          -b forces daemon (background) mode
+          -P uses 'pidfile' as the PID file
+             (default is '/var/run/mDNSResponder.pid')
+             only meaningful if -b also specified
+          -x stores name=val in TXT record (default is empty).
+             MUST be the last command-line argument;
+             all subsequent arguments after -x are treated as name=val pairs.
+mdns_responder: You must specify a service name to register (-n) or a service file (-f).
+
+$ ./bin/mdns_client  -h
+./bin/mdns_client: invalid option -- 'h'
+Usage: mdns_client [-v level] [-t type] [-d domain]
+          -v verbose mode, level is a number from 0 to 2
+             0 = no debugging info (default)
+             1 = standard debugging info
+             2 = intense debugging info
+          -t uses 'type' as the service type (default is '_afpovertcp._tcp')
+          -d uses 'domain' as the domain to browse (default is 'local.')
+
+$ ./bin/mdns_responder -t _study._tcp. -d local -n changyy -b
+$ ./bin/mdns_client -t _study._tcp.
+Hit ^C when you're bored waiting for responses.
+*** Found name = 'changyy', type = '_study._tcp.', domain = 'local.'
+
