@@ -34,8 +34,9 @@ IF(DEFINED CMAKE_TOOLCHAIN_FILE)
 		COMMAND test -e ${CMAKE_CURRENT_SOURCE_DIR}/${MDNS_TARBALL_SOURCE} || wget http://www.opensource.apple.com/tarballs/mDNSResponder/${MDNS_TARBALL_SOURCE} -O ${CMAKE_CURRENT_SOURCE_DIR}/${MDNS_TARBALL_SOURCE}
 		COMMAND tar -xzvf ${CMAKE_CURRENT_SOURCE_DIR}/${MDNS_TARBALL_SOURCE}
 		COMMAND cd ${MDNS_TARBALL_DIR} && patch -p1 < ${CMAKE_CURRENT_SOURCE_DIR}/${MDNS_TARBALL_PATCH}
-		COMMAND cd ${MDNS_TARBALL_DIR}/mDNSPosix && make os=linux HAVE_IPV6=0 LINKOPTS="${COMPILER_ADD_LIBS}" CC=${target_platform}-gcc AR=${target_platform}-ar LD=${target_platform}-ld RANLIB=${target_platform}-ranlib NM=${target_platform}-nm AS=${target_platform}-as OBJDUMP=${target_platform}-objdump OBJCOPY=${target_platform}-objcopy STRIP=${target_platform}-strip STRING=${target_platform}-strings SIZE=${target_platform}-size CPP=${target_platform}-cpp 
-		COMMAND mkdir -p ${CMAKE_RUNTIME_OUTPUT_DIRECTORY} && cp ${MDNS_TARBALL_DIR}/mDNSPosix/build/prod/mDNSClientPosix ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/mdns_client && cp ${MDNS_TARBALL_DIR}/mDNSPosix/build/prod/mDNSResponderPosix ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/mdns_responder
+		#COMMAND cd ${MDNS_TARBALL_DIR}/mDNSPosix && make os=linux HAVE_IPV6=0 LINKOPTS="${COMPILER_ADD_LIBS}" CC=${target_platform}-gcc AR=${target_platform}-ar LD=${target_platform}-ld RANLIB=${target_platform}-ranlib NM=${target_platform}-nm AS=${target_platform}-as OBJDUMP=${target_platform}-objdump OBJCOPY=${target_platform}-objcopy STRIP=${target_platform}-strip STRING=${target_platform}-strings SIZE=${target_platform}-size CPP=${target_platform}-cpp 
+		COMMAND cd ${MDNS_TARBALL_DIR}/mDNSPosix && make os=linux HAVE_IPV6=0 LINKOPTS="${COMPILER_ADD_LIBS}" CC=${target_platform}-gcc AR=${target_platform}-ar RANLIB=${target_platform}-ranlib NM=${target_platform}-nm AS=${target_platform}-as OBJDUMP=${target_platform}-objdump OBJCOPY=${target_platform}-objcopy STRIP=${target_platform}-strip STRING=${target_platform}-strings SIZE=${target_platform}-size CPP=${target_platform}-cpp 
+		COMMAND mkdir -p ${CMAKE_RUNTIME_OUTPUT_DIRECTORY} && cp ${MDNS_TARBALL_DIR}/mDNSPosix/build/prod/mDNSClientPosix ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/mdns_client && cp ${MDNS_TARBALL_DIR}/mDNSPosix/build/prod/mDNSResponderPosix ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/mdns_responder && cp ${MDNS_TARBALL_DIR}/Clients/build/dns-sd ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/mdns_dns-sd
 		WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
 		COMMENT BUILD_MDNS
 	)
@@ -45,7 +46,7 @@ ELSE(DEFINED CMAKE_TOOLCHAIN_FILE)
 		COMMAND test -e ${CMAKE_CURRENT_SOURCE_DIR}/${MDNS_TARBALL_SOURCE} || wget http://www.opensource.apple.com/tarballs/mDNSResponder/${MDNS_TARBALL_SOURCE} -O ${CMAKE_CURRENT_SOURCE_DIR}/${MDNS_TARBALL_SOURCE}
 		COMMAND tar -xzvf ${CMAKE_CURRENT_SOURCE_DIR}/${MDNS_TARBALL_SOURCE}
 		COMMAND cd ${MDNS_TARBALL_DIR}/mDNSPosix && make os=linux
-		COMMAND mkdir -p ${CMAKE_RUNTIME_OUTPUT_DIRECTORY} && cp ${MDNS_TARBALL_DIR}/mDNSPosix/build/prod/mDNSClientPosix ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/mdns_client && cp ${MDNS_TARBALL_DIR}/mDNSPosix/build/prod/mDNSResponderPosix ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/mdns_responder
+		COMMAND mkdir -p ${CMAKE_RUNTIME_OUTPUT_DIRECTORY} && cp ${MDNS_TARBALL_DIR}/mDNSPosix/build/prod/mDNSClientPosix ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/mdns_client && cp ${MDNS_TARBALL_DIR}/mDNSPosix/build/prod/mDNSResponderPosix ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/mdns_responder && cp ${MDNS_TARBALL_DIR}/Clients/build/dns-sd ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/mdns_dns-sd
 		WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
 		COMMENT BUILD_MDNS
 	)
