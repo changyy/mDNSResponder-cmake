@@ -1,6 +1,6 @@
 diff -Naur mDNSResponder-379.37/Clients/Makefile mDNSResponder-379.37-modified/Clients/Makefile
 --- mDNSResponder-379.37/Clients/Makefile	2009-08-11 09:13:47.000000000 +0800
-+++ mDNSResponder-379.37-modified/Clients/Makefile	2013-06-15 09:24:14.173225697 +0800
++++ mDNSResponder-379.37-modified/Clients/Makefile	2013-06-15 16:40:50.347256045 +0800
 @@ -42,10 +42,10 @@
  	mkdir build
  
@@ -14,3 +14,15 @@ diff -Naur mDNSResponder-379.37/Clients/Makefile mDNSResponder-379.37-modified/C
  
  # Note, we can make a 'fat' version of dns-sd using 'lipo', as shown below, but we
  # don't, because we don't want or need a 'fat' version of dns-sd, because it will
+diff -Naur mDNSResponder-379.37/mDNSPosix/Makefile mDNSResponder-379.37-modified/mDNSPosix/Makefile
+--- mDNSResponder-379.37/mDNSPosix/Makefile	2011-11-03 08:23:39.000000000 +0800
++++ mDNSResponder-379.37-modified/mDNSPosix/Makefile	2013-06-15 16:41:07.947037970 +0800
+@@ -102,7 +102,7 @@
+ # any target that contains the string "linux"
+ ifeq ($(findstring linux,$(os)),linux)
+ CFLAGS_OS = -D_GNU_SOURCE -DHAVE_IPV6 -DNOT_HAVE_SA_LEN -DUSES_NETLINK -DHAVE_LINUX -DTARGET_OS_LINUX -fno-strict-aliasing
+-LD = gcc -shared
++LD = $(CC) -shared
+ FLEXFLAGS_OS = -l
+ JAVACFLAGS_OS += -I$(JDK)/include/linux
+ 
