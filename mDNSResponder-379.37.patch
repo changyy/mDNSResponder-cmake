@@ -1,0 +1,16 @@
+diff -Naur mDNSResponder-379.37/Clients/Makefile mDNSResponder-379.37-modified/Clients/Makefile
+--- mDNSResponder-379.37/Clients/Makefile	2009-08-11 09:13:47.000000000 +0800
++++ mDNSResponder-379.37-modified/Clients/Makefile	2013-06-15 09:24:14.173225697 +0800
+@@ -42,10 +42,10 @@
+ 	mkdir build
+ 
+ build/dns-sd: build dns-sd.c ClientCommon.c
+-	cc $(filter %.c %.o, $+) $(LIBS) -I../mDNSShared -Wall -o $@
++	$(CC) $(filter %.c %.o, $+) $(LIBS) -I../mDNSShared -Wall -shared -O2 -o $@
+ 
+ build/dns-sd64: build dns-sd.c ClientCommon.c
+-	cc $(filter %.c %.o, $+) $(LIBS) -I../mDNSShared -Wall -o $@ -m64
++	$(CC) $(filter %.c %.o, $+) $(LIBS) -I../mDNSShared -Wall -shared -O2 -o $@ -m64
+ 
+ # Note, we can make a 'fat' version of dns-sd using 'lipo', as shown below, but we
+ # don't, because we don't want or need a 'fat' version of dns-sd, because it will
