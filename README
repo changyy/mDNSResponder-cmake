@@ -1,3 +1,8 @@
+Env:
+$ apt-get install libbison-dev libfl-dev
+
+Usage:
+
 $ mkdir build
 $ cd build
 $ cmake ..
